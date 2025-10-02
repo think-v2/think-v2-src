@@ -11,7 +11,6 @@ function App() {
   const [_finishedSong, setFinishedSong] = useState(false);
   const splitLyrics = useCallback((fullLyrics: string) => {
     const newLyrics = fullLyrics.split("\n");
-    console.log(newLyrics);
     setScoreArray(Array(newLyrics.length).fill(-1));
     setLyrics(newLyrics);
     setFinishedSong(false);
