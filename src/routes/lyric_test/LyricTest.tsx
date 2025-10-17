@@ -5,7 +5,7 @@ import PasteButton from "../../../components/lyric_test/PasteButton.tsx";
 import LyricLine from "../../../components/lyric_test/LyricLine.tsx";
 import ScoreBar from "../../../components/lyric_test/ScoreBar.tsx";
 
-function App() {
+function LyricTest() {
   const [lyrics, setLyrics] = useState<string[]>([]);
   const [scoreArray, setScoreArray] = useState<number[]>([]);
   const [_finishedSong, setFinishedSong] = useState(false);
@@ -73,4 +73,4 @@ function App() {
   );
 }
 
-export default App;
+export default LyricTest;
