@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import "./PickupParty.css";
 import Players from "../../../components/pickup_party/Players.tsx";
 import Chat from "../../../components/pickup_party/Chat.tsx";

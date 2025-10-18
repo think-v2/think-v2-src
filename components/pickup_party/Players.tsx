@@ -1,5 +1,3 @@
-import React from "react";
-
 type PlayersProps = {
   playerList: string[];
   adminId: number;

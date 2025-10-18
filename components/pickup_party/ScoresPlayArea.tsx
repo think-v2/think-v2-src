@@ -1,5 +1,3 @@
-import React from "react";
-
 type VotingPlayAreaProps = {
   scores: Record<string, number>;
 };
