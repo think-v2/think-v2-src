@@ -40,12 +40,26 @@ const PickupParty = () => {
   const messageInput = useRef<null | HTMLInputElement>(null);
   const lobbyIdInput = useRef<null | HTMLInputElement>(null);
   const nameInput = useRef<null | HTMLInputElement>(null);
+  const serverAddress = useRef<null | HTMLInputElement>(null);
 
   // command tools
   const [seeIds, setSeeIds] = useState<boolean>(false);
 
-  useEffect(() => {
-    ws.current = new WebSocket("ws://localhost:8080");
+  const connectToServerAddress = useCallback(() => {
+    if (!serverAddress.current) {
+      return;
+    }
+
+    setPrompts({});
+    setPromptPrompt([]);
+    setResponsesVotingOn({});
+    setPromptVotingOn("");
+    setVotes({});
+    setScores({});
+    setPhase(0);
+
+    //ws.current = new WebSocket("ws://localhost:8080");
+    ws.current = new WebSocket(serverAddress.current.value);
 
     ws.current.onopen = () => {
       console.log("Connected to server");
@@ -101,6 +115,20 @@ const PickupParty = () => {
       console.log("Disconnected from server");
       setConnection(false);
     };
+
+    // stop timeouts from tunneling via heartbeat
+    setInterval(() => {
+      if (
+        lobbyIdInput.current &&
+        ws.current &&
+        ws.current.readyState === WebSocket.OPEN
+      ) {
+        const data = {
+          type: "heartbeat",
+        };
+        ws.current.send(JSON.stringify(data));
+      }
+    }, 1000 * 15);
 
     return () => {
       ws.current?.close();
@@ -239,9 +267,32 @@ const PickupParty = () => {
   return (
     <div className="h-screen w-screen flex flex-col justify-center align-middle text-black">
       <div className="grid grid-flow-col-dense grid-cols-4 grid-rows-7 bg-white rounded-md h-[800px] w-[1200px] mx-auto">
-        <div className="col-span-4 row-span-1 bg-gray-200">
+        <div className="col-span-4 row-span-1 bg-gray-200 relative">
+          <div className="absolute top-1 left-1">
+            <input
+              type="text"
+              placeholder="Server Address"
+              ref={serverAddress}
+              className="rounded-md p-1 m-1 bg-gray-300"
+            ></input>
+            <button
+              onClick={connectToServerAddress}
+              className="rounded-md p-1 m-1 bg-gray-300"
+            >
+              Connect
+            </button>
+            {connection ? "🟢" : "🔴"}
+            <br />
+            <a
+              href="https://github.com/think-v2/pickup-party-server"
+              target="_blank"
+              className="text-gray-400 underline text-sm"
+            >
+              learn more about server hosting
+            </a>
+          </div>
           <p className="text-3xl m-3 text-black">
-            <b>Pickup Party</b> {!connection && "🔴 no connection 🔴"}
+            <b>Pickup Party</b>
           </p>
           <input
             type="text"

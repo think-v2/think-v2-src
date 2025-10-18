@@ -10,7 +10,7 @@ const Index = () => {
         <ProjectCard
           to="/PickupParty"
           title="🎉 Pickup Party 🎉"
-          date="10/17/2025"
+          date="10/18/2025"
         />
         <ProjectCard
           to="/LyricTest"
