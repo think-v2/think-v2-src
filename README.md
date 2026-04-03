@@ -1,2 +1,9 @@
 # think-v2-src
-Vite React Router TS project for multiple personal projects
+Retired Vite React Router TS repo for multiple personal projects
+
+Complete
+- Lyric Test
+- Pickup Party
+
+Abandoned
+- Chess/SAP game
